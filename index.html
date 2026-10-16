@@ -1,13 +1,40 @@
 <!DOCTYPE HTML>
 <html>
+<style>
+.container {
+    display: flex;
+    background-color: rgb(118, 186, 229);
+}
+.container div {
+    background-color: rgb(200,200,200);
+    margin: 10px;
+    padding: 20px;
+    font-size: 30px;
+}
+</style>
 <title>Latin Wordle</title>
 <body>
 
-<textarea id="word_input" maxlength="5"></textarea>
-<p id="word_output"></p>
+<div class = "container">
+    <div id = "letter0"></div>
+    <div id = "letter1"></div>
+    <div id = "letter2"></div>
+    <div id = "letter3"></div>
+    <div id = "letter4"></div>
+</div>
 
 <script>
-setInterval(function() {document.getElementById("word_output").innerHTML=document.getElementById("word_input").value}, 50)
+const word = "";
+const allowed = new Set([65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90]);
+
+addEventListener("keydown",function (event) {  
+  if (allowed.has(event.keyCode)) {
+    word += event.key;
+    for (let i = 0; i < 5; i++) {
+      document.getElementById("letter" + i).innerHTML = word.at(i);
+    };
+  }
+})
 </script>
 
 </body>
