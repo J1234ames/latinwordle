@@ -28,13 +28,14 @@ let word = "";
 let allowed = new Set(["a","b","c","d"]);
 
 addEventListener("keydown",updatetext) 
+
 function updatetext() {  
-  if (allowed.has(event.keyCode)) {
-    word += event.key;
-    for (let i = 0; i < 5; i++) {
-      document.getElementById("letter" + i).innerHTML = word.at(i);
-    };
-  };
+	if (allowed.has(event.key)) {
+    	word += event.key;
+    	for (let i = 0; i < 5; i++) {
+      		document.getElementById("letter" + i).innerHTML = word.at(i);
+    	};
+	};
 };
 </script>
 
