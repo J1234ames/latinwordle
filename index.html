@@ -24,18 +24,34 @@
 </div>
 
 <script>
-let word = "";
-let allowed = new Set(["a","b","c","d"]);
+let word = [];
+let allowed = new Set(["A","B","C","D","E","F","G","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","Backspace"]);
+let keysense = 0;
+let currentkey = undefined
 
-addEventListener("keydown",updatetext) 
+addEventListener("keydown",updatetext);
+addEventListener("keyup",sensekeyup);
 
 function updatetext() {  
-	if (allowed.has(event.key)) {
-    	word += event.key;
+	if (allowed.has(event.key) && event.key != currentkey) {
+    	if (event.key == "Backspace") {
+    		word.pop();
+    	} else {
+       		currentkey = event.key;
+   			word = word.concat(event.key);
+        };
     	for (let i = 0; i < 5; i++) {
-      		document.getElementById("letter" + i).innerHTML = word.at(i);
-    	};
+            if (i >= word.length) {
+              	document.getElementById("letter" + i).innerHTML = "";
+            } else {
+                document.getElementById("letter" + i).innerHTML = word.at(i).toUpperCase();
+        	}; 
+        };
 	};
+};
+
+function sensekeyup() {
+	currentkey = undefined;
 };
 </script>
 
