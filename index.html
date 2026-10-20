@@ -24,17 +24,18 @@
 </div>
 
 <script>
-const word = "";
-const allowed = new Set([65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90]);
+let word = "";
+let allowed = new Set(["a","b","c","d"]);
 
-addEventListener("keydown",function (event) {  
+addEventListener("keydown",updatetext) 
+function updatetext() {  
   if (allowed.has(event.keyCode)) {
     word += event.key;
     for (let i = 0; i < 5; i++) {
       document.getElementById("letter" + i).innerHTML = word.at(i);
     };
-  }
-})
+  };
+};
 </script>
 
 </body>
