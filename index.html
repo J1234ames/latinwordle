@@ -1,51 +1,129 @@
 <!DOCTYPE HTML>
 <html>
 <style>
-.container {
+#box {
     display: flex;
-    background-color: rgb(118, 186, 229);
+    background-color: rgb(255, 255, 255);
+    flex-direction: column;
+    align-items: center;
 }
-.container div {
-    background-color: rgb(200,200,200);
-    margin: 10px;
-    padding: 20px;
-    font-size: 30px;
+.row div{
+	font-weight: 900;
+	font-family: calibri;
+	text-align: center;
+	height: 20px;
+	width: 20px;
+	border: 2px solid rgba(0,0,0,0.1);
+    margin: 3px;
+    padding: 15px;
+    font-size: 25px;
+}
+.row {
+	display: flex;
+	flex-direction: row;
 }
 </style>
 <title>Latin Wordle</title>
 <body>
 
-<div class = "container">
-    <div id = "letter0"></div>
-    <div id = "letter1"></div>
-    <div id = "letter2"></div>
-    <div id = "letter3"></div>
-    <div id = "letter4"></div>
+<div id = "box">
+<div class = "row" id = "row1">
+    <div class = "letter0"></div>
+    <div class = "letter1"></div>
+    <div class = "letter2"></div>
+    <div class = "letter3"></div>
+    <div class = "letter4"></div>
 </div>
+<div class = "row" id = "row2">
+    <div class = "letter0"></div>
+    <div class = "letter1"></div>
+    <div class = "letter2"></div>
+    <div class = "letter3"></div>
+    <div class = "letter4"></div>
+</div>
+
+<div class = "row" id = "row3">
+    <div class = "letter0"></div>
+    <div class = "letter1"></div>
+    <div class = "letter2"></div>
+    <div class = "letter3"></div>
+    <div class = "letter4"></div>
+</div>
+
+<div class = "row" id = "row4">
+    <div class = "letter0"></div>
+    <div class = "letter1"></div>
+    <div class = "letter2"></div>
+    <div class = "letter3"></div>
+    <div class = "letter4"></div>
+</div>
+
+<div class = "row" id = "row5">
+    <div class = "letter0"></div>
+    <div class = "letter1"></div>
+    <div class = "letter2"></div>
+    <div class = "letter3"></div>
+    <div class = "letter4"></div>
+</div>
+
+<div class = "row" id = "row6">
+    <div class = "letter0"></div>
+    <div class = "letter1"></div>
+    <div class = "letter2"></div>
+    <div class = "letter3"></div>
+    <div class = "letter4"></div>
+</div>
+</div>
+
+<div id = "test"></div>
 
 <script>
 let word = [];
-let allowed = new Set(["A","B","C","D","E","F","G","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","Backspace"]);
+let correctword = ["P","U","P","I","L"]
+let allowed = new Set(["A","B","C","D","E","F","G","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z","Backspace","Enter"]);
 let keysense = 0;
 let currentkey = undefined
+let guess = 0
 
 addEventListener("keydown",updatetext);
 addEventListener("keyup",sensekeyup);
 
-function updatetext() {  
+function updatetext() {
 	if (allowed.has(event.key) && event.key != currentkey) {
-    	if (event.key == "Backspace") {
-    		word.pop();
+    	if (event.key == "Enter") {
+        	if (word.length == 5) {
+            	for (let i = 0; i < 5; i++) {
+                	if (correctword.includes(word.at(i).toUpperCase())) {
+                    	if (correctword.at(i) == word.at(i).toUpperCase()) {
+                        	document.getElementsByClassName("letter" + i)[guess].style.backgroundColor = "rgb(108,169,101)";
+                        } else {
+                        	document.getElementsByClassName("letter" + i)[guess].style.backgroundColor = "rgb(200,182,83)";
+                    	};
+                    } else {
+                    document.getElementsByClassName("letter" + i)[guess].style.backgroundColor = "rgb(120,124,127)";
+                    };
+                document.getElementsByClassName("letter" + i)[guess].style.border = "2px solid rgba(0,0,0,0)";
+                document.getElementsByClassName("letter" + i)[guess].style.color = "rgb(255,255,255)";
+                };
+    			guess += 1;
+           		word = []
+            };
     	} else {
-       		currentkey = event.key;
-   			word = word.concat(event.key);
-        };
-    	for (let i = 0; i < 5; i++) {
-            if (i >= word.length) {
-              	document.getElementById("letter" + i).innerHTML = "";
-            } else {
-                document.getElementById("letter" + i).innerHTML = word.at(i).toUpperCase();
-        	}; 
+        	if (event.key == "Backspace") {
+    		word.pop();
+            } else if (word.length < 5) {
+   				word = word.concat(event.key);
+            };
+            currentkey = event.key;
+            for (let i = 0; i < 5; i++) {
+            	if (i >= word.length) {
+              		document.getElementsByClassName("letter" + i)[guess].innerHTML = "";
+                    document.getElementsByClassName("letter" + i)[guess].style.border = "2px solid rgba(0,0,0,0.1)";
+            	} else {
+                	document.getElementsByClassName("letter" + i)[guess].innerHTML = word.at(i).toUpperCase();
+                    document.getElementsByClassName("letter" + i)[guess].style.border = "2px solid rgba(0,0,0,1)";
+        		}; 
+        	};
         };
 	};
 };
